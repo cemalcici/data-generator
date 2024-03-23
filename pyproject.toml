@@ -20,6 +20,8 @@ sqlalchemy = "1.4.41"
 psycopg2-binary = "2.9.3"
 boto3 = "<=1.24.92"
 
+[tool.poetry.scripts]
+data-generator = "data_generator.datagen:main"
 
 [build-system]
 requires = ["poetry-core"]
