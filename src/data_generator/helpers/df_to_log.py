@@ -1,12 +1,16 @@
 # region Global Packages
 import os
+import time
 import click
+from datetime import datetime
 # endregion
 
 # region Local Packages
 from data_generator.utils import (
     PACKAGE_DIR,
-    str2bool
+    str2bool,
+    create_output_folder,
+    report_remaining
 )
 from .file_reader import read_source_file
 # endregion
@@ -118,12 +122,67 @@ def dataframe_to_log(
     )
     print(f"Starting in {batch_interval * batch_size} seconds... ")
     
+    # region Create DataFrame
     df = read_source_file(
         input, sep, 
         source_file_extension, 
         shuffle, excluded_cols
     )
+    # endregion
     
-    print(df.head())
+    # region Create Output Folder    
+    create_output_folder(output)
+    # endregion
     
+    # region Prepared Variables for Loop
+    df_size = len(df)
+    time_list_for_each_batch = []
+    repeat_counter = 1
+    total_counter = 1
+    # endregion
+    
+    for _ in range(repeat):
+        batch_counter = 0
+        for row_count in range(1, df_size + 1):
+            time.sleep(batch_interval)
+            time_list_for_each_batch.append(datetime.now())
+            
+            if (row_count % batch_size == 0) or (row_count == df_size):
+                # region Created Batch DataFrame
+                df_batch = df.iloc[batch_counter:row_count, :].copy()
+                df_batch['event_time'] = time_list_for_each_batch
+                # endregion
+                
+                # region Truncated Time List
+                time_list_for_each_batch = []
+                # endregion
+                
+                # region Wrote Batch DataFrame Log
+                timestr = time.strftime("%Y%m%d-%H%M%S")
+                if is_output_format_parquet:
+                    df_batch.to_parquet(
+                        os.path.join(output, f'{prefix}_{timestr}.parquet'),
+                        engine='pyarrow', index=output_index
+                    )
+                else:
+                    df_batch.to_csv(
+                        os.path.join(output, f'{prefix}_{timestr}.csv'),
+                        header=output_header, index=output_index,
+                        index_label='ID', encoding='utf-8', sep=log_sep
+                    )
+                # endregion
+                
+                # region Offseted Row Count Per Batch Size
+                batch_counter = row_count
+                # endregion
+                
+                # region Reported Remaining
+                report_remaining(
+                    row_count, repeat, df_size,
+                    batch_interval, repeat_counter,
+                    total_counter
+                )
+                # endregion
+            total_counter += 1
+        repeat_counter += 1
 # endregion
