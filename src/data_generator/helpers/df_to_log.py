@@ -107,14 +107,14 @@ def dataframe_to_log(
     excluded_cols
 ):
     print(
-        f"dataframe_to_log(sep='{sep}', log_sep='{log_sep}'," +
-        f"input='{input}', output='{output}', " +
-        f"batch_interval={batch_interval}, batch_size={batch_size}, "+ 
-        f"source_file_extension='{source_file_extension}', " +
-        f"prefix='{prefix}', output_header={output_header}, " + 
-        f"is_output_format_parquet={is_output_format_parquet}, " +
-        f"output_index={output_index}, repeat={repeat}, " + 
-        f"shuffle={shuffle}, excluded_cols={excluded_cols})"
+        f"dataframe_to_log(\n\tsep='{sep}',\n\tlog_sep='{log_sep}'," +
+        f"\n\tinput='{input}',\n\toutput='{output}'," +
+        f"\n\tbatch_interval={batch_interval},\n\tbatch_size={batch_size},"+ 
+        f"\n\tsource_file_extension='{source_file_extension}'," +
+        f"\n\tprefix='{prefix}',\n\toutput_header={output_header}," + 
+        f"\n\tis_output_format_parquet={is_output_format_parquet}," +
+        f"\n\toutput_index={output_index},\n\trepeat={repeat}," + 
+        f"\n\tshuffle={shuffle},\n\texcluded_cols={excluded_cols}\n)"
     )
     print(f"Starting in {batch_interval * batch_size} seconds... ")
     
