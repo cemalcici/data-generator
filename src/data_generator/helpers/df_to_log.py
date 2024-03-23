@@ -8,6 +8,7 @@ from data_generator.utils import (
     PACKAGE_DIR,
     str2bool
 )
+from .file_reader import read_source_file
 # endregion
 
 
@@ -106,12 +107,23 @@ def dataframe_to_log(
     excluded_cols
 ):
     print(
-        sep, log_sep, input, output,
-        batch_interval, batch_size,
-        source_file_extension,
-        prefix, output_header,
-        is_output_format_parquet,
-        output_index, repeat, shuffle,
-        excluded_cols
+        f"dataframe_to_log(sep='{sep}', log_sep='{log_sep}'," +
+        f"input='{input}', output='{output}', " +
+        f"batch_interval={batch_interval}, batch_size={batch_size}, "+ 
+        f"source_file_extension='{source_file_extension}', " +
+        f"prefix='{prefix}', output_header={output_header}, " + 
+        f"is_output_format_parquet={is_output_format_parquet}, " +
+        f"output_index={output_index}, repeat={repeat}, " + 
+        f"shuffle={shuffle}, excluded_cols={excluded_cols})"
     )
+    print(f"Starting in {batch_interval * batch_size} seconds... ")
+    
+    df = read_source_file(
+        input, sep, 
+        source_file_extension, 
+        shuffle, excluded_cols
+    )
+    
+    print(df.head())
+    
 # endregion
