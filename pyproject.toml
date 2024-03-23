@@ -1,0 +1,19 @@
+# pyproject.toml
+[tool.poetry]
+name = "data-generator"
+version = "0.1.0"
+description = "This repo is for generating data from existing dataset to a file or producing dataset rows as message to kafka in a streaming manner."
+authors = ["erkansirin78 <erkansirin78@hotmail.com>, "kayademirs <s.kayademir@gmail.com>", "cemalcici <iecemalcici@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/erkansirin78/data-generator"
+repository = "https://github.com/erkansirin78/data-generator"    
+keywords = ["streaming", "data", "generator"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
