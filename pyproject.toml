@@ -21,7 +21,10 @@ psycopg2-binary = "2.9.3"
 boto3 = "<=1.24.92"
 
 [tool.poetry.scripts]
-data-generator = "data_generator.datagen:main"
+datagen = "data_generator.datagen:main"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.4"
 
 [build-system]
 requires = ["poetry-core"]
