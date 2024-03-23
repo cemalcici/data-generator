@@ -58,7 +58,7 @@ from .file_reader import read_source_file
 @click.option(
     '-x', '--prefix', 'prefix',
     required=False, type=str, 
-    default='my_log_', show_default=True,
+    default='my_log', show_default=True,
     help='The prefix of log filename.'
 )
 @click.option(
