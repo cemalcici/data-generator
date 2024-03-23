@@ -95,7 +95,7 @@ from .file_reader import read_source_file
     '-exc', '--excluded-cols', 'excluded_cols',
     required=False, multiple=True, 
     default=['it_is_impossible_column'], show_default=True,
-    help="The columns not to write log file?. Ex: -exc 'Species' 'PetalWidthCm'"
+    help="The columns not to write log file?. Ex: -exc Species -exc PetalWidthCm"
 )
 def dataframe_to_log(
     sep, log_sep, input, output,
