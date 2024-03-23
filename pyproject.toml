@@ -25,6 +25,7 @@ datagen = "data_generator.datagen:main"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.4"
+pytest = "^8.1.1"
 
 [build-system]
 requires = ["poetry-core"]
