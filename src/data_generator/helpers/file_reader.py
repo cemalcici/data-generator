@@ -45,6 +45,7 @@ def read_source_file(
     else:
         raise dgex.NotVaildExtensionError(('csv', 'parquet'))
     
-    dataframe.drop(columns=list(exclude_cols), inplace=True, errors='ignore')
+    if exclude_cols: 
+        dataframe.drop(columns=list(exclude_cols), inplace=True, errors='ignore') 
     dataframe.dropna(inplace=True)
     return dataframe

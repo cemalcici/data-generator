@@ -1,22 +1,20 @@
 # region Global Packages
-import click
+import typer
 # endregion
 
 # region Local Packages
-from . import __version__
 from data_generator.helpers import (
     dataframe_to_log
 )
 # endregion
 
+app = typer.Typer()
 
-@click.group()
-@click.version_option(version=__version__)
-def main():
+app.command('dftolog', help='DataFrame to Log')(dataframe_to_log)
+
+@app.callback()
+def callback():
     pass
 
-
-main.add_command(dataframe_to_log, 'dataframe_to_log')
-
 if __name__ == '__main__':
-    main()
+    app()
