@@ -1,10 +1,24 @@
 import os
 import click
+import typer
+from enum import Enum
+
+from . import __version__
+
 
 PACKAGE_DIR = os.path.dirname(os.path.abspath(f'{__file__}'))
 
+class SourceType(str, Enum):
+    csv = 'csv'
+    parquet = 'parquet'
 
-def str2bool(ctx, param, value):
+
+
+def str2bool(
+    ctx, 
+    param, 
+    value
+):
     if isinstance(value, bool):
         return value
     elif value.lower() in ('yes', 'true', 't', 'y', '1'):
@@ -37,3 +51,11 @@ def report_remaining(
         f"{total_counter}/{df_size * repeat} processed, " +
         f"%{remaining_per:.2f} will be completed in {remaining_time_mins:.2f} mins."
     )
+
+
+def version_callback(
+    value: bool
+):
+    if value:
+        print(f"Data Generator Version: {__version__}")
+        raise typer.Exit()
